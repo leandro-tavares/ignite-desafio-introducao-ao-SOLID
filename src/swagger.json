@@ -1,0 +1,186 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "User API",
+    "description": "This is a documentation for a User API.",
+    "contact": {
+      "name": "API Support",
+      "email": "support@email.com"
+    },
+    "version": "1.0.1",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "basePath": "/",
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API Documentation"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create User",
+        "description": "Create a new user",
+        "requestBody": {
+          "description": "Create user parameters",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List Users",
+        "description": "List all users, as long as the requesting user is admin.",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "description": "UUID format",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User does not exists or has not permission to list all users"
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Show profile",
+        "description": "Show user profile ",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "UUID format",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Update User Admin",
+        "description": "Update existing user to admin",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "UUID format",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "admin": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UserID": {}
+    }
+  }
+}
