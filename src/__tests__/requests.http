@@ -1,0 +1,22 @@
+@baseUrl = http://localhost:3333
+@user_id = 405cac32-4c1a-4d25-992c-3c289ce2bd92
+
+###  Rota - [POST] /users
+POST {{baseUrl}}/users 
+Content-Type: application/json
+
+{
+	"name": "Leandro Tavares",
+	"email": "email2@none.com"
+}
+
+### Rota - [PATCH] /users/:user_id/admin
+PATCH {{baseUrl}}/users/{{user_id}}/admin
+Content-Type: application/json
+
+### Rota - [GET] /users/:user_id 
+GET {{baseUrl}}/users/{{user_id}}
+
+### Rota - [GET] /users
+GET {{baseUrl}}/users
+user_id: {{user_id}}
